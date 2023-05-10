@@ -182,3 +182,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 if os.path.exists('env.py'):
     import env
+
+if os.getcwd() == '/app':
+    DEBUG = False
