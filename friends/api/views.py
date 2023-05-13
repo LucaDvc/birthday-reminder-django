@@ -20,8 +20,12 @@ class FriendListCreateView(generics.ListCreateAPIView):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
             user = self.request.user
-            serializer.save(user=user)
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            friend = serializer.save(user=user)
+            response_data = {
+                'message': 'Friend created successfully',
+                'friend': FriendSerializer(friend).data
+            }
+            return Response(response_data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
